@@ -97,5 +97,12 @@ ENV/
 # mkdocs documentation
 /site
 
+# pycharm
+.idea/**
+
 # mypy
 .mypy_cache/
+
+# secrets
+config.ini
+!.example
