@@ -9,6 +9,7 @@ class Reddit(object):
     """
     Provides functionality to interact with praw which wraps the Reddit API
     """
+
     def __init__(self, subreddit='futurology'):
         self.client_id = config['REDDITAPI']['client_id']
         self.client_secret = config['REDDITAPI']['client_secret']
@@ -21,7 +22,7 @@ class Reddit(object):
                                   client_secret=self.client_secret,
                                   username=self.username,
                                   password=self.password,
-                                  user_agent= self.user_agent)
+                                  user_agent=self.user_agent)
         self.subreddit = self.reddit.subreddit(subreddit)
 
     def hot_posts(self, limit=5):
@@ -40,5 +41,10 @@ class Reddit(object):
         """
         return self.subreddit.new(limit=limit)
 
-    def get_user(self):
-        return self.reddit.user
+    def get_user(self, name):
+        user = self.reddit.redditor(name=name)
+        return user
+
+    def list_of_top_content_from_user(self, name):
+        user = self.get_user(name)
+        return [content for content in user.top()]
